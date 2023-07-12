@@ -26,7 +26,7 @@ export const EntryPage = () => {
 
   clevertap.privacy.push({ optOut: false })
   clevertap.privacy.push({ useIP: false })
-  clevertap.init('ZWW-WWW-WW4Z', 'in1')
+  clevertap.init('798-RK6-K75Z', 'eu1')
   window.clevertap = clevertap
 
 
