@@ -30,6 +30,25 @@ export const EntryPage = () => {
   clevertap.init('679-8Z7-W66Z', 'sk1')
   window.clevertap = clevertap
 
+  const errorHandling = (e) =>{
+    let temp
+    switch(e.code){
+      case 404 : 
+        temp = "Receiver has Uninstalled the app"
+       break
+       case 406 : 
+        temp = "Receiver is offline"
+        break
+       default :
+       temp = e.message
+    }
+    if(e.message !== undefined){
+      return toast.error(temp,
+      {position: 'top-center',
+      duration: 5000,
+      style:{width:"1500px",height:"100px"}})
+    } 
+  }
 
   // signin and validate the options
   const onSubmit = (initOptions) => {
@@ -54,7 +73,7 @@ export const EntryPage = () => {
         cardRef.current.scrollIntoView({
           behavior: 'smooth', block: 'center'
         })
-      }).catch(err => console.log(err))
+      }).catch((error) => {errorHandling(error)})
 
     } catch (err) {
       console.log(err)
@@ -78,10 +97,7 @@ export const EntryPage = () => {
 
   const makecall = ({ cuid, context }) => {
     dcClient.call(cuid, context).then(res => console.log(res))
-    .catch((error) => {if(error.message !== undefined){toast.error(error.message,
-      {position: 'top-center',
-      duration: 5000,
-      style:{width:"1500px",height:"100px"}})}})
+    .catch((error)=>{errorHandling(error)})
   }
   // disconnects the sdk
   const disconnect = () => {
