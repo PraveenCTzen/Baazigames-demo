@@ -7,6 +7,7 @@ import { CallForm } from "../components/callform.wrapper";
 import { CardRow } from "../components/card.component";
 import { useStateWithCB } from "../hooks/useStateWithCallback";
 import { generateCuid } from "../utils/cuid.generator";
+import toast, { Toaster } from 'react-hot-toast';
 export const EntryPage = () => {
 
   const [dcClient, setDcClient] = useState(null)
@@ -26,7 +27,7 @@ export const EntryPage = () => {
 
   clevertap.privacy.push({ optOut: false })
   clevertap.privacy.push({ useIP: false })
-  clevertap.init('675-8WW-4R6Z', 'sg1')
+  clevertap.init('679-8Z7-W66Z', 'sk1')
   window.clevertap = clevertap
 
 
@@ -73,9 +74,14 @@ export const EntryPage = () => {
 
     }
   }
+ 
 
   const makecall = ({ cuid, context }) => {
-    dcClient.call(cuid, context).then(res => console.log(res)).catch(err => console.log(err))
+    dcClient.call(cuid, context).then(res => console.log(res))
+    .catch((error) => {if(error.message !== undefined){toast.error(error.message,
+      {position: 'top-center',
+      duration: 5000,
+      style:{width:"1500px",height:"100px"}})}})
   }
   // disconnects the sdk
   const disconnect = () => {
@@ -96,7 +102,7 @@ export const EntryPage = () => {
         <CallForm myref={callerRef} call={makecall} />
       </div>
       <h1 className={`text-4xl pb-6 ${showReceiver ? "block" : "hidden"}`} ref={receiverRef}>Please ask the caller to call you at <i>{cuid}</i></h1>
-
+      <Toaster/>
     </>
   )
 }
