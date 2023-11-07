@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { ctAccountAndRegions,scAccountId, scApikey} from "../utils/constants";
+import { ctAccountAndRegions } from "../utils/constants";
 import Select from 'react-dropdown-select';
 
 
@@ -20,15 +20,15 @@ const generateRandomCuid = () => (
  */
 export const AuthForm = ({ submitFn, connected, disconnect }) => {
   const [cuid, setCuid] = useState(generateRandomCuid)
-  // const [ctAccId, setCtAccId] = useState("679-8Z7-W66Z")
-  // const[scAccountId, setScAccountId] = useState('')
-  // const[scApikey, setScApikey] = useState('')
-  // const [ctRegion, setCTRegion] = useState("sk1")
+  const [ctAccId, setCtAccId] = useState("")
+  const[scAccountId, setScAccountId] = useState('')
+  const[scApikey, setScApikey] = useState('')
+  const [ctRegion, setCTRegion] = useState("in1")
 
-  // const onRegionChange = (value) => {
-  //   setCTRegion(value[0]?.label)
-  //   setCtAccId(value[0]?.vaZlue)
-  // }
+  const onRegionChange = (value) => {
+    setCTRegion(value[0]?.label)
+    // setCtAccId(value[0]?.value)
+  }
   
   const submit = (e) => {
     e.preventDefault();
@@ -37,8 +37,8 @@ export const AuthForm = ({ submitFn, connected, disconnect }) => {
         cuid: cuid,
         accountId: scAccountId,
         apikey: scApikey,
-        // ctAccId,
-        // ctRegion
+        ctAccId,
+        ctRegion
       })
     } else {
       disconnect()
@@ -54,7 +54,7 @@ export const AuthForm = ({ submitFn, connected, disconnect }) => {
               <div className="px-4 py-5 bg-white sm:p-6">
                
                 <div className="grid gap-6 ">
-                  {/* <div className="col-span-12 sm:col-span-12">
+                  <div className="col-span-12 sm:col-span-12">
                     <label htmlFor="last-name" className="block text-sm font-medium text-gray-700">
                       CT Account Id *
                     </label>
@@ -70,9 +70,9 @@ export const AuthForm = ({ submitFn, connected, disconnect }) => {
                       // disabled={true}
                       onChange={e => setCtAccId(e.target.value)}
                     />
-                  </div> */}
+                  </div>
 
-                  {/* <div className="col-span-12 sm:col-span-12">
+                  <div className="col-span-12 sm:col-span-12">
                     <label htmlFor="last-name" className="block text-sm font-medium text-gray-700">
                       SC Account Id *
                     </label>
@@ -88,9 +88,9 @@ export const AuthForm = ({ submitFn, connected, disconnect }) => {
                       // disabled={true}
                       onChange={e => setScAccountId(e.target.value)}
                     />
-                  </div> */}
+                  </div>
 
-                  {/* <div className="col-span-12 sm:col-span-12">
+                  <div className="col-span-12 sm:col-span-12">
                     <label htmlFor="dc-api-key" className="block text-sm font-medium text-gray-700">
                       SC Api Key *
                     </label>
@@ -106,7 +106,7 @@ export const AuthForm = ({ submitFn, connected, disconnect }) => {
                       // disabled={true}
                       onChange={e => setScApikey(e.target.value)}
                     />
-                  </div> */}
+                  </div>
                   {/* <div className="col-span-6">
                     <label htmlFor="cc" className="block text-sm font-medium text-gray-700">
                       CC
@@ -165,7 +165,7 @@ export const AuthForm = ({ submitFn, connected, disconnect }) => {
                     </div>
                   </div>
                 </div>
-                {/* <div className="col-span-12 sm:col-span-12" style={{"paddingBottom": 100}}>
+                <div className="col-span-12 sm:col-span-12" style={{"paddingBottom": 100}}>
                     <label htmlFor="sc-region" className="block text-sm font-medium text-gray-700">
                       Select Region
                     </label>
@@ -173,9 +173,8 @@ export const AuthForm = ({ submitFn, connected, disconnect }) => {
                       options={ctAccountAndRegions}
                       id="sc-region"
                       onChange={(values) => onRegionChange(values)}
-                      values={[{ label: "sk1", value : "679-8Z7-W66Z" }]}
                     />
-                  </div> */}
+                  </div>
               </div>
               <div className="px-4 py-3 bg-gray-50 text-right sm:px-6 mt-5">
                 {
